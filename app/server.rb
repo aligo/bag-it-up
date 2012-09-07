@@ -13,6 +13,9 @@ require_relative 'extends/srcver'
 class BagItUpApp < Sinatra::Base
   include Sinatra::Srcver
 
+  set :root, File.dirname(__FILE__)
+  set :environment, ENV['ENV'] || 'development'
+
   set :codename, 'Bag-It-Up'
   set :sitename, 'Bag It Up'
 

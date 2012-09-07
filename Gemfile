@@ -9,3 +9,5 @@ gem 'less'
 gem 'coffee-script'
 
 gem 'therubyracer', :platforms => :ruby
+
+gem 'unicorn'

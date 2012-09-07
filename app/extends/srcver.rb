@@ -5,14 +5,14 @@ module Sinatra
       def srcver
         unless @srcver && !development?
           @srcver = {}
-          if File.exist?('VERSION')
-            @srcver[:ver] = File.open('REVISION', 'r').read.to_s
-            @srcver[:run] = File.open('VERSION', 'r').read.to_s
+          if File.exist?(root + '/../VERSION')
+            @srcver[:ver] = File.open(root + '/../REVISION', 'r').read.to_s
+            @srcver[:run] = File.open(root + '/../VERSION', 'r').read.to_s
           else
-            @srcver[:run] = File.open('.git/HEAD', 'r') do |file|
+            @srcver[:run] = File.open(root + '/../.git/HEAD', 'r') do |file|
               file.read.gsub!("ref: refs/heads/", "").strip
             end
-            @srcver[:ver] = File.open(".git/refs/heads/#{@srcver[:run]}", 'r') do |file|
+            @srcver[:ver] = File.open(root + "/../.git/refs/heads/#{@srcver[:run]}", 'r') do |file|
               file.read.gsub!("\n", "")
             end
           end
