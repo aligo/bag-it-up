@@ -13,37 +13,41 @@ require 'coffee-script'
 require_relative 'extends/srcver'
 require_relative 'extends/sprockets'
 
-class BagItUpApp < Sinatra::Base
-  include Sinatra::Srcver
+module BagItUp
 
-  set :root, @root
-  set :environment, ENV['ENV'] || 'development'
+  class WebServer < Sinatra::Base
+    include Sinatra::Srcver
 
-  set :codename, 'Bag-It-Up'
-  set :sitename, 'Bag It Up'
+    set :root, @root
+    set :environment, ENV['ENV'] || 'development'
 
-  configure :development do
-    register Sinatra::Reloader
-  end
+    set :codename, 'Bag-It-Up'
+    set :sitename, 'Bag It Up'
 
-  print self.srcver[:log] + "\n"
+    configure :development do
+      register Sinatra::Reloader
+    end
 
-  get '/' do
-    slim :index
-  end
+    print self.srcver[:log] + "\n"
 
-  get '/assets/:file.js' do
-    content_type 'application/javascript'
-    sprockets["#{params[:file]}.js"]
-  end
+    get '/' do
+      slim :index
+    end
 
-  get '/assets/:file.css' do
-    content_type 'text/css'
-    sprockets["#{params[:file]}.css"]
+    get '/assets/:file.js' do
+      content_type 'application/javascript'
+      sprockets["#{params[:file]}.js"]
+    end
+
+    get '/assets/:file.css' do
+      content_type 'text/css'
+      sprockets["#{params[:file]}.css"]
+    end
+
   end
 
 end
 
 if __FILE__ == $0
-  BagItUpApp.run! :port => 3000
+  BagItUp::WebServer.run! :port => 3000
 end
