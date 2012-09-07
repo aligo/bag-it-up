@@ -9,6 +9,7 @@ gem 'slim'
 gem 'less'
 gem 'coffee-script'
 
+gem 'yui-compressor'
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier'
 

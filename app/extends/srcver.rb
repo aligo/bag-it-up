@@ -1,4 +1,4 @@
-module Sinatra
+module BagItUp
   module Srcver
 
     module ClassMethods

@@ -8,18 +8,19 @@ require 'slim'
 require 'less'
 require 'coffee-script'
 
-@root = File.dirname(__FILE__)
 
+require_relative 'extends/assets'
 require_relative 'extends/srcver'
-require_relative 'extends/sprockets'
 
 module BagItUp
 
   class WebServer < Sinatra::Base
-    include Sinatra::Srcver
+    include BagItUp::Srcver
+    helpers BagItUp::Assets::Helpers
 
-    set :root, @root
+    set :root, File.dirname(__FILE__)
     set :environment, ENV['ENV'] || 'development'
+    set :development, environment == 'development' ? true : false
 
     set :codename, 'Bag-It-Up'
     set :sitename, 'Bag It Up'
@@ -34,14 +35,12 @@ module BagItUp
       slim :index
     end
 
-    get '/assets/:file.js' do
-      content_type 'application/javascript'
-      sprockets["#{params[:file]}.js"]
-    end
-
-    get '/assets/:file.css' do
-      content_type 'text/css'
-      sprockets["#{params[:file]}.css"]
+    if development
+      get '/assets/:file' do
+        asset = BagItUp::Assets.instance(File.dirname(settings.root))["#{params[:file]}"]
+        content_type asset.content_type
+        asset
+      end
     end
 
   end
