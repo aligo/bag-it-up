@@ -1,4 +1,5 @@
 source :rubygems
+gem 'rake'
 
 gem 'sinatra'
 gem 'sinatra-contrib'
@@ -9,5 +10,6 @@ gem 'less'
 gem 'coffee-script'
 
 gem 'therubyracer', :platforms => :ruby
+gem 'uglifier'
 
 gem 'unicorn'

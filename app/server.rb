@@ -8,12 +8,15 @@ require 'slim'
 require 'less'
 require 'coffee-script'
 
+@root = File.dirname(__FILE__)
+
 require_relative 'extends/srcver'
+require_relative 'extends/sprockets'
 
 class BagItUpApp < Sinatra::Base
   include Sinatra::Srcver
 
-  set :root, File.dirname(__FILE__)
+  set :root, @root
   set :environment, ENV['ENV'] || 'development'
 
   set :codename, 'Bag-It-Up'
@@ -22,10 +25,6 @@ class BagItUpApp < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
   end
-
-  sprockets = Sprockets::Environment.new
-  sprockets.append_path root + '/assets/javascripts'
-  sprockets.append_path root + '/assets/stylesheets'
 
   print self.srcver[:log] + "\n"
 
