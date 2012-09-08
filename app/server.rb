@@ -19,7 +19,7 @@ module BagItUp
     helpers BagItUp::Assets::Helpers
 
     set :root, File.dirname(__FILE__)
-    set :environment, ENV['ENV'] || 'development'
+    set :environment, ENV['RACK_ENV'] || ENV['ENV'] || 'development'
     set :development, environment == 'development' ? true : false
 
     set :codename, 'Bag-It-Up'
