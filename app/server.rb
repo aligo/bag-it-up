@@ -29,7 +29,7 @@ module BagItUp
       register Sinatra::Reloader
     end
 
-    print self.srcver[:log] + "\n"
+    $stderr.puts self.srcver[:log]
 
     get '/' do
       slim :index
