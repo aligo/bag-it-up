@@ -13,4 +13,4 @@ gem 'yui-compressor'
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier'
 
-gem 'unicorn'
+gem 'puma'
